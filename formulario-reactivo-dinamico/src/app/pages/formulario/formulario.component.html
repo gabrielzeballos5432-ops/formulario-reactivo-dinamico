@@ -1,0 +1,80 @@
+<h1>Formulario de Producto</h1>
+
+<form [formGroup]="miFormulario" (ngSubmit)="guardar()" class="form-container">
+
+  <div class="grid-form">
+
+    <div class="form-group" *ngFor="let campo of [
+      {name:'codigo', type:'text', placeholder:'Código'},
+      {name:'nombre', type:'text', placeholder:'Nombre'},
+      {name:'descripcion', type:'text', placeholder:'Descripción'},
+      {name:'categoria', type:'text', placeholder:'Categoría'},
+      {name:'marca', type:'text', placeholder:'Marca'},
+      {name:'stockMinimo', type:'number', placeholder:'Stock Mínimo'},
+      {name:'cantidad', type:'number', placeholder:'Cantidad'},
+      {name:'precio', type:'number', placeholder:'Precio'},
+      {name:'fechaIngreso', type:'date', placeholder:''}
+    ]">
+
+      <input
+        [type]="campo.type"
+        [placeholder]="campo.placeholder"
+        [formControlName]="campo.name"
+        [class.invalid]="campoInvalido(campo.name)">
+
+      <small class="error" *ngIf="getError(campo.name)">
+        {{ getError(campo.name) }}
+      </small>
+
+    </div>
+
+  </div>
+
+  <div class="checkbox">
+    <label>
+      <input type="checkbox" formControlName="activo">
+      Producto Activo
+    </label>
+  </div>
+
+  <button type="submit" class="btn-guardar">
+    Guardar Producto
+  </button>
+
+</form>
+
+<hr>
+
+<h2>Lista de Productos</h2>
+
+<table *ngIf="productos.length > 0">
+  <thead>
+    <tr>
+      <th>Código</th>
+      <th>Nombre</th>
+      <th>Descripción</th>
+      <th>Categoría</th>
+      <th>Marca</th>
+      <th>Stock Min</th>
+      <th>Cantidad</th>
+      <th>Precio</th>
+      <th>Fecha</th>
+      <th>Activo</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let p of productos">
+      <td>{{ p.codigo }}</td>
+      <td>{{ p.nombre }}</td>
+      <td>{{ p.descripcion }}</td>
+      <td>{{ p.categoria }}</td>
+      <td>{{ p.marca }}</td>
+      <td>{{ p.stockMinimo }}</td>
+      <td>{{ p.cantidad }}</td>
+      <td>{{ p.precio }}</td>
+      <td>{{ p.fechaIngreso }}</td>
+      <td>{{ p.activo ? 'Sí' : 'No' }}</td>
+    </tr>
+  </tbody>
+</table>

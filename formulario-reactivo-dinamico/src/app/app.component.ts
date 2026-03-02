@@ -8,6 +8,6 @@ import { RouterOutlet } from '@angular/router';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class App {
+export class AppComponent {
   protected readonly title = signal('formulario_reactivo');
 }
