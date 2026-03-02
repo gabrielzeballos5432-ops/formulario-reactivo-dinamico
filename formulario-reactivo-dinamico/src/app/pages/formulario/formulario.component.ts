@@ -37,7 +37,7 @@ export class FormularioComponent {
       marca: ['', [Validators.required, Validators.pattern('^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+$')]],
       stockMinimo: ['', [Validators.required, Validators.pattern('^[1-9]+$')]],
       cantidad: ['', [Validators.required, Validators.pattern('^[1-9]+$')]],
-      precio: ['', [Validators.required, Validators.pattern('^[1-9]+(\\.[0-9]{1,2})?$')]],
+      precio: ['', [Validators.required, Validators.pattern('^[0-9]+(\\.[0-9]{1,2})?$')]],
       fechaIngreso: ['', Validators.required],
       activo: [true]
     });
