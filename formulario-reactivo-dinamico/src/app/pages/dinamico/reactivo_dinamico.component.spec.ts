@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { DinamicoComponent } from './dinamico.component';
+import { ReactivoDinamicoComponent } from './reactivo_dinamico.component';
 
-describe('DinamicoComponent', () => {
-  let component: DinamicoComponent;
-  let fixture: ComponentFixture<DinamicoComponent>;
+describe('ReactivoDinamicoComponent', () => {
+  let component: ReactivoDinamicoComponent;
+  let fixture: ComponentFixture<ReactivoDinamicoComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DinamicoComponent ]
+      declarations: [ ReactivoDinamicoComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DinamicoComponent);
+    fixture = TestBed.createComponent(ReactivoDinamicoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

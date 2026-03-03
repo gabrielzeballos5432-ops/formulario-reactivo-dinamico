@@ -1,0 +1,340 @@
+.contenedor {
+  max-width: 1600px;
+  margin: 40px auto;
+  text-align: center;
+  padding: 0 16px;
+}
+
+.titulo {
+  margin-bottom: 30px;
+}
+
+.full {
+  width: 100%;
+  margin-bottom: 6px;
+}
+
+/* Reduce form field height */
+.full::ng-deep .mat-mdc-form-field {
+  width: 100%;
+  font-size: 13px;
+}
+
+.full::ng-deep .mdc-text-field {
+  height: auto;
+}
+
+.full::ng-deep input.mat-mdc-input-element {
+  padding: 5px 10px;
+  min-height: 28px;
+  font-size: 13px;
+}
+
+.fila {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr auto;
+  gap: 15px;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.total-item {
+  font-weight: bold;
+  text-align: center;
+}
+
+.total-general {
+  margin-top: 30px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* shopping cart styles */
+.cart {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 12px;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.cart-header, .cart-item {
+  display: grid;
+  grid-template-columns: 3fr 1fr 1fr 1fr auto;
+  gap: 10px;
+  align-items: center;
+}
+
+.cart-header {
+  font-weight: bold;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 8px;
+  margin-bottom: 8px;
+}
+
+.cart-item {
+  margin-bottom: 8px;
+}
+
+.item-product input,
+.item-qty input,
+.item-price input {
+  width: 100%;
+}
+
+.item-total {
+  text-align: center;
+  font-weight: bold;
+}
+
+.cart-actions {
+  margin-top: 10px;
+  text-align: left;
+}
+
+/* center tables */
+table {
+  margin: 16px auto;
+  width: 100%;
+  max-width: 1300px;
+}
+
+.product-table {
+  width: 100%;
+  max-width: 100%;
+  margin: 16px auto;
+  overflow-x: auto;
+  display: table;
+  border-collapse: collapse;
+  background: white;
+  table-layout: auto;
+}
+
+.product-table thead,
+.product-table tbody {
+  display: table-row-group;
+}
+
+.product-table tr {
+  display: table-row;
+  width: 100%;
+}
+
+.product-table th,
+.product-table td {
+  display: table-cell;
+  padding: 12px 14px;
+  text-align: left;
+  font-size: 13px;
+  border-bottom: 1px solid #e0e0e0;
+  min-width: 90px;
+}
+
+.product-table th {
+  background: #7c3fb5;
+  color: white;
+  font-weight: 600;
+  border: none;
+  text-transform: capitalize;
+  white-space: nowrap;
+}
+
+.product-table tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+.product-table tbody tr:nth-child(even) {
+  background-color: #fafafa;
+}
+
+.product-table tbody tr:hover {
+  background-color: #f0e6f9;
+}
+
+.saved-orders {
+  margin-top: 30px;
+  width: 100%;
+  overflow-x: auto;
+}
+
+/* quantity control */
+.item-qty {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.item-qty .qty-field {
+  width: 60px;
+}
+
+.section-divider {
+  margin: 32px 0;
+}
+
+/* estilos para el selector rápido de productos */
+.add-item {
+  display: grid;
+  grid-template-columns: 3fr 1fr 1fr auto;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 12px;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: #fafafa;
+  width: 100%;
+}
+
+.add-item .mat-form-field {
+  margin: 0; /* eliminar márgenes laterales comunes */
+}
+
+.add-item button {
+  align-self: center;
+  white-space: nowrap;
+}
+
+/* ensure controls fill their grid columns */
+.add-item .item-product {
+  width: 100%;
+}
+
+.add-item .item-qty,
+.add-item .item-price {
+  width: 100%;
+}
+.add-item .mat-form-field {
+  min-width: 120px;
+  flex: 1 1 120px;
+}
+
+.add-item button {
+  height: 40px;
+  min-width: 120px;
+}
+
+/* Forzar altura y centrado de controles dentro de la fila add-item */
+.add-item ::ng-deep .mdc-text-field {
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+}
+.add-item ::ng-deep input.mat-mdc-input-element,
+.add-item ::ng-deep textarea.mat-mdc-input-element {
+  padding: 6px 10px;
+  min-height: 36px;
+  height: 36px;
+  box-sizing: border-box;
+}
+.add-item ::ng-deep .mat-mdc-form-field-wrapper {
+  align-items: center;
+  height: 40px;
+}
+
+/* mensaje carrito vacío */
+.empty-cart {
+  text-align: center;
+  color: #666;
+  margin: 12px 0;
+}
+
+mat-card {
+  margin-bottom: 20px;
+  padding: 16px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: visible;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+mat-card:first-of-type {
+  max-width: 600px;
+}
+
+mat-card.product-list-card {
+  padding: 20px;
+  overflow: visible;
+  max-width: 100%;
+}
+
+mat-card-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+/* keep earlier fila styles if we reuse accidentally */
+.fila {
+  display: none;
+}
+
+/* styles for product form (from formulario.component.css) */
+.form-container {
+  margin: 0 auto;
+  max-width: 600px;
+}
+
+.grid-form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  transition: 0.3s;
+}
+
+input:focus {
+  outline: none;
+  border-color: #863fb5;
+}
+
+.invalid {
+  border-color: #e53935;
+}
+
+.error {
+  color: #e53935;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.checkbox {
+  margin-top: 12px;
+  margin-bottom: 8px;
+  font-size: 13px;
+}
+
+.btn-guardar {
+  margin-top: 6px;
+  padding: 10px;
+  width: 100%;
+  background: #8a3fb5;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 13px;
+}
+
+.btn-guardar:hover {
+  background: #83309f;
+}
+
+@media (max-width: 768px) {
+  .grid-form {
+    grid-template-columns: 1fr;
+  }
+}

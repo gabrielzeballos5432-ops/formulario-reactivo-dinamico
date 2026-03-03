@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
-import { DinamicoComponent } from './pages/dinamico/dinamico.component';
+import { ReactivoDinamicoComponent } from './pages/dinamico/reactivo_dinamico.component';
 
 export const routes: Routes = [
   {
     path: '',
-    component: DinamicoComponent
+    component: ReactivoDinamicoComponent
   }
 ];

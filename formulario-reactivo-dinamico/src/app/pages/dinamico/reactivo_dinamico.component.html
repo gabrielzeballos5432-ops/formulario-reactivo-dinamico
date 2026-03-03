@@ -1,0 +1,267 @@
+<div class="contenedor">
+  <mat-card>
+    <mat-card-title>Formulario de Producto</mat-card-title>
+    <mat-card-content>
+      <form [formGroup]="productForm" (ngSubmit)="guardarProducto()" class="form-container">
+        <div class="grid-form">
+          <mat-form-field appearance="outline" class="full">
+        <mat-label>Código</mat-label>
+        <input matInput type="text" formControlName="codigo">
+        <mat-error *ngIf="getError('codigo')">{{ getError('codigo') }}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full">
+          <mat-label>Nombre</mat-label>
+          <input matInput type="text" formControlName="nombre">
+          <mat-error *ngIf="getError('nombre')">{{ getError('nombre') }}</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="full">
+          <mat-label>Descripción</mat-label>
+          <input matInput type="text" formControlName="descripcion">
+          <mat-error *ngIf="getError('descripcion')">{{ getError('descripcion') }}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full">
+          <mat-label>Categoría</mat-label>
+          <input matInput type="text" formControlName="categoria">
+          <mat-error *ngIf="getError('categoria')">{{ getError('categoria') }}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full">
+          <mat-label>Marca</mat-label>
+          <input matInput type="text" formControlName="marca">
+          <mat-error *ngIf="getError('marca')">{{ getError('marca') }}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full">
+          <mat-label>Stock Mínimo</mat-label>
+          <input matInput type="number" formControlName="stockMinimo">
+          <mat-error *ngIf="getError('stockMinimo')">{{ getError('stockMinimo') }}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full">
+          <mat-label>Cantidad</mat-label>
+          <input matInput type="number" formControlName="cantidad">
+          <mat-error *ngIf="getError('cantidad')">{{ getError('cantidad') }}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full">
+          <mat-label>Precio</mat-label>
+          <input matInput type="number" formControlName="precio">
+          <mat-error *ngIf="getError('precio')">{{ getError('precio') }}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full">
+          <mat-label>Fecha de Ingreso</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="fechaIngreso">
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error *ngIf="getError('fechaIngreso')">{{ getError('fechaIngreso') }}</mat-error>
+        </mat-form-field>
+        </div>
+
+        <mat-checkbox formControlName="activo" class="checkbox">
+          Producto Activo
+        </mat-checkbox>
+
+        <button mat-raised-button color="primary" type="submit" class="btn-guardar">
+          Guardar Producto
+        </button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-divider class="section-divider"></mat-divider>
+
+  <!-- lista de productos guardados -->
+  <mat-card class="product-list-card">
+    <mat-card-title>Lista de Productos</mat-card-title>
+    <mat-card-content>
+      <table *ngIf="productos.length > 0" class="product-table mat-elevation-z2">
+        <thead>
+          <tr>
+            <th>Código</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Categoría</th>
+            <th>Marca</th>
+            <th>Stock Min</th>
+            <th>Cantidad</th>
+            <th>Precio</th>
+            <th>Fecha</th>
+            <th>Activo</th>
+          </tr>
+            </thead>
+        <tbody>
+          <tr *ngFor="let p of productos">
+            <td>{{ p.codigo }}</td>
+            <td>{{ p.nombre }}</td>
+            <td>{{ p.descripcion }}</td>
+            <td>{{ p.categoria }}</td>
+            <td>{{ p.marca }}</td>
+            <td>{{ p.stockMinimo }}</td>
+            <td>{{ p.cantidad }}</td>
+            <td>{{ p.precio }}</td>
+            <td>{{ p.fechaIngreso }}</td>
+            <td>{{ p.activo ? 'Sí' : 'No' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-divider class="section-divider"></mat-divider>
+
+  <mat-card>
+    <mat-card-title>Formulario de Pedido</mat-card-title>
+    <mat-card-content>
+      <form [formGroup]="orderForm">
+        <mat-form-field appearance="outline" class="full">
+          <mat-label>Cliente</mat-label>
+          <input matInput formControlName="cliente">
+          <mat-error *ngIf="orderForm.get('cliente')?.hasError('required')">
+            Cliente es obligatorio
+          </mat-error>
+        </mat-form-field>
+
+        <!-- selector rápido de producto nuevo -->
+        <div [formGroup]="newItem" class="add-item">
+          <mat-form-field appearance="outline" class="item-product">
+            <mat-label>Producto</mat-label>
+            <input type="text" matInput formControlName="producto" [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedProduct($event.option.value)">
+              <mat-option *ngFor="let prod of productos" [value]="prod.nombre">
+                {{ prod.nombre }}
+              </mat-option>
+              <ng-container *ngIf="newItem.get('producto')?.value && productoNuevo(newItem.get('producto')?.value)">
+                <mat-option [value]="newItem.get('producto')?.value">
+                  <em>Agregar "{{ newItem.get('producto')?.value }}"</em>
+                </mat-option>
+              </ng-container>
+            </mat-autocomplete>
+            <mat-error *ngIf="newItem.get('producto')?.hasError('required')">
+              Seleccione un producto
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="item-qty">
+            <input matInput type="number" formControlName="cantidad" min="1">
+            <mat-error *ngIf="newItem.get('cantidad')?.hasError('required')">
+              Cantidad necesaria
+            </mat-error>
+            <mat-error *ngIf="newItem.get('cantidad')?.hasError('min')">
+              Mínimo 1
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="item-price">
+            <input matInput type="number" formControlName="precio">
+            <mat-error *ngIf="newItem.get('precio')?.hasError('required')">
+              Precio requerido
+            </mat-error>
+            <mat-error *ngIf="newItem.get('precio')?.hasError('min')">
+              >0
+            </mat-error>
+          </mat-form-field>
+
+          <button mat-flat-button color="primary" type="button" (click)="agregarAlCarrito()" [disabled]="newItem.invalid">
+            <mat-icon>add_shopping_cart</mat-icon>
+            Agregar al carrito
+          </button>
+        </div>
+
+        <div *ngIf="orderProductos.length === 0" class="empty-cart">
+          No hay productos en el carrito
+        </div>
+        <div class="cart" formArrayName="productos" *ngIf="orderProductos.length > 0">
+          <div class="cart-header">
+            <span>Producto</span>
+            <span>Cantidad</span>
+            <span>Precio</span>
+            <span>Total</span>
+            <span></span>
+          </div>
+
+          <div *ngFor="let item of orderProductos.controls; let i = index"
+               [formGroupName]="i"
+               class="cart-item">
+            <mat-form-field appearance="outline" class="item-product">
+              <mat-label>Producto</mat-label>
+              <mat-select formControlName="producto">
+                <mat-option *ngFor="let prod of productos" [value]="prod.nombre">
+                  {{ prod.nombre }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="item-qty">
+              <input matInput type="number" formControlName="cantidad" min="1">
+              <mat-error *ngIf="orderProductos.at(i).get('cantidad')?.hasError('required')">
+                Cantidad obligatoria
+              </mat-error>
+              <mat-error *ngIf="orderProductos.at(i).get('cantidad')?.hasError('min')">
+                Debe ser al menos 1
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="item-price">
+              <input matInput type="number" formControlName="precio">
+              <mat-error *ngIf="orderProductos.at(i).get('precio')?.hasError('required')">
+                Precio obligatorio
+              </mat-error>
+              <mat-error *ngIf="orderProductos.at(i).get('precio')?.hasError('min')">
+                Debe ser mayor que cero
+              </mat-error>
+            </mat-form-field>
+
+            <div class="item-total">
+              {{ calcularTotal(i) | currency }}
+            </div>
+
+            <button mat-icon-button color="warn"
+                    (click)="eliminarProducto(i)"
+                    *ngIf="orderProductos.length > 1">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <h3 class="total-general">
+        Total General: {{ totalGeneral | currency }}
+      </h3>
+      <button mat-raised-button color="accent" type="button" [disabled]="orderForm.invalid || orderProductos.length === 0" (click)="confirmarCompra()">
+        Confirmar y Guardar
+      </button>
+    </mat-card-content>
+  </mat-card>
+  <mat-divider class="section-divider"></mat-divider>
+
+  <mat-card *ngIf="pedidosGuardados.length > 0" class="product-list-card">
+    <mat-card-title>Pedidos Guardados</mat-card-title>
+    <mat-card-content>
+      <table class="product-table mat-elevation-z2">
+        <thead>
+          <tr>
+            <th>Cliente</th>
+            <th>Fecha</th>
+            <th>Total</th>
+            <th>Productos</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let p of pedidosGuardados">
+            <td>{{ p.cliente }}</td>
+            <td>{{ p.fecha | date:'short' }}</td>
+            <td>{{ p.total | currency }}</td>
+            <td>
+              <ul>
+                <li *ngFor="let i of p.productos">{{ i.producto }} (x{{ i.cantidad }})</li>
+              </ul>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </mat-card-content>
+  </mat-card>
+</div>
