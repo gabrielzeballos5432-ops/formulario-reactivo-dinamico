@@ -131,22 +131,6 @@ export class ReactivoDinamicoComponent {
     }
     const value = this.newItem.value;
 
-    // if product not in master list, add it so autocomplete suggests later
-    if (value.producto && !this.productos.some(p => p.nombre === value.producto)) {
-      const nuevoProd: Producto = {
-        codigo: value.producto,
-        nombre: value.producto,
-        descripcion: '',
-        categoria: '',
-        marca: '',
-        stockMinimo: 0,
-        cantidad: 0,
-        precio: 0,
-        fechaIngreso: new Date().toISOString().split('T')[0],
-        activo: true
-      };
-      this.productos.push(nuevoProd);
-    }
 
     // if product already in cart, increase quantity
     const existingCtrl = this.orderProductos.controls.find(ctrl => ctrl.get('producto')?.value === value.producto);
